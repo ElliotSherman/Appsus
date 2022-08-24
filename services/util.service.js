@@ -6,6 +6,9 @@ export const utilService = {
     padNum,
     getDayName,
     getMonthName,
+    makeRandName,
+    randomDate,
+    randomBoolean
 }
 
 function makeId(length = 6) {
@@ -59,4 +62,23 @@ function getMonthName(date) {
         "July", "August", "September", "October", "November", "December"
     ]
     return monthNames[date.getMonth()]
+}
+
+function makeRandName() {
+    var words = ['Yossi', 'Yaron', 'Matan', 'Elad', 'Yotam', 'Josh', 'Yoni', 'Tim', 'Eliot', 'Avner', 'Tal']
+    var txt = ''
+    var size = 1
+    while (size > 0) {
+        size--
+        txt += words[Math.floor(Math.random() * words.length)] + ' '
+    }
+    return txt
+}
+
+function randomBoolean() {
+return (Math.random() < 0.5)
+}
+
+function randomDate(start, end) {
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
 }
