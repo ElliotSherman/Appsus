@@ -1,44 +1,20 @@
 :root {
   --font-clr: #5f6368;
+  --font-clr2: #202124;
+  --bg-clr: #f1f3f4;
+  --note-bg1: #f28b82;
+  --note-bg2: #fbbc04;
+  --note-bg3: #fff475;
+  --note-bg4: #ccff90;
+  --note-bg5: #a7ffeb;
+  --note-bg6: #fdcfe8;
 }
 
 @font-face {
   font-family: product-sans;
   src: url(../../../../fonts/Product\ Sans\ Regular.ttf);
 }
-
-/* @import './apps/note/cmps/note-header.css'; */
-
-/* @import "../cmps/note-list.css"; */
-/* @import './apps/note/views/note-app.css'; */
-/* @import "./cmps/note-header.css" */
-/* @import "assets/css/apps/note/cmps/note-header.css";  */
-
-/* @import '../cmps/note-header.css'; */
-
-.note-header{
-    padding: 0.5rem;
-    width: 100%;
-}
-.note-header-ui{
-
-    width: 100%;
-}
-.note-header-settings>li{
-    width: 48px;
-    height: 48px;
-}
-.flex.note-header-search-form{
-    flex: 1 1;
-    justify-content: end;
-}
-.note-header-search-form{
-    width: 100%;
-}
-.note-search-form-input{
-    max-width: 720px;
-    /* margin-inline-start: auto; */
-}
-.note-header-title-container{
-    padding-inline-start: 1.875rem;
+@font-face {
+  font-family: roboto;
+  src: url(../../../../fonts/Roboto-Regular.ttf);
 }

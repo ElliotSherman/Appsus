@@ -5,21 +5,31 @@
 .note-header-ui {
   width: 100%;
 }
+.user-prefrences{
+    width: 14.5rem;
+}
 .note-header-settings > li {
   width: 48px;
   height: 48px;
 }
 .flex.note-header-search-form {
-  flex: 1 1;
-  justify-content: end;
-}
-.note-header-search-form {
   width: 100%;
+  justify-content: start;
 }
+
 .note-search-form-input {
+  flex: 1;
   max-width: 720px;
-  /* margin-inline-start: auto; */
 }
 .note-header-title-container {
+  justify-content: flex-start;
+  min-width: 14.5rem;
   padding-inline-start: 1.875rem;
+}
+.note-header-title h1 {
+  padding-inline-end: 0.25rem;
+}
+.note-header-title > div > img {
+  padding-inline-start: 0.25rem;
+  height: auto;
 }
