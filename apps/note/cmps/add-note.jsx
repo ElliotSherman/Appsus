@@ -1,4 +1,8 @@
 import { surveyService } from "../../../services/survey.service.js"
+import NoteImg from "./note-img.jsx"
+import NoteText from "./note-text.jsx"
+import NoteTodo from "./note-todos.jsx"
+import NoteVideo from "./note-video.jsx"
 
 // ? image note
 // TODO - user clicks on img icon
@@ -16,7 +20,6 @@ export default class AddNote extends React.Component {
   componentDidMount() {
     surveyService.getById().then((survey) => {
       this.setState({
-        surveyType,
         survey,
         answers: new Array(survey.cmps.length).fill(null),
       })
@@ -24,18 +27,26 @@ export default class AddNote extends React.Component {
   }
 
   DynamicCmp = (props) => {
-    switch (props.type) {
-      case "textBox":
-        return <TextBox {...props} />
-      case "selectBox":
-        return <SelectBox {...props} />
+    switch (this.state.inputType) {
+      case "text":
+        return <NoteText {...props} />
+
+      case "image":
+        return <NoteImg {...props} />
+
+      case "iframe":
+        return <NoteVideo {...props} />
+
+      case "todo":
+        return <NoteTodo {...props} />
     }
   }
 
   handleClick = (type) => {
-    this.setState({inputType: type })
+    this.setState({ inputType: type })
 
-    // todo load the form with a promise
+    // todo load the form
+
   }
 
   onChangeVal = (idx, val) => {
@@ -47,12 +58,10 @@ export default class AddNote extends React.Component {
   }
 
   render() {
-    const { survey, answers } = this.state
-    // if (!survey) return '<div></div>'
+    const { inputType } = this.state
     const { DynamicCmp, onChangeVal, handleClick } = this
     return (
       <section className="flex justify-center add-note">
-        {/* <h2>Survey - {survey.title}</h2> */}
         <div className="flex add-note-type">
           <button
             className="add-note-type text-btn"
@@ -79,67 +88,8 @@ export default class AddNote extends React.Component {
             <i className="far fa-check-square"></i>
           </button>
         </div>
-        {/* {
-            survey.cmps.map((cmp, idx) => <div key={idx} style={{
-                backgroundColor: 'lightcoral',
-                padding: '5px', margin: '5px'
-            }}>
-                <DynamicCmp
-                    type={cmp.type} info={cmp.info}
-                    onChangeVal={(val) => {
-                        onChangeVal(idx, val)
-                    }}
-                />
-            </div>)
-        } */}
-
-        {/* <hr />
-        <pre>
-            {JSON.stringify(answers, null, 2)}
-        </pre> */}
+        <DynamicCmp name={'Baba'} />
       </section>
-    )
-  }
-}
-
-export class TextBox extends React.Component {
-  render() {
-    const { label } = this.props.info
-    const { onChangeVal } = this.props
-
-    return (
-      <label>
-        {label}
-        <input
-          type="text"
-          onChange={(ev) => {
-            onChangeVal(ev.target.value)
-          }}
-        />
-      </label>
-    )
-  }
-}
-
-export class SelectBox extends React.Component {
-  render() {
-    const { label, opts } = this.props.info
-    const { onChangeVal } = this.props
-
-    return (
-      <label>
-        {label}
-        <select
-          onChange={(ev) => {
-            onChangeVal(ev.target.value)
-          }}
-        >
-          <option value="">Select</option>
-          {opts.map((opt) => (
-            <option key={opt}>{opt}</option>
-          ))}
-        </select>
-      </label>
     )
   }
 }
