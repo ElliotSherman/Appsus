@@ -4,7 +4,7 @@ export default function NoteHeader() {
       {/* <i class="fa-solid fa-bars"></i> */}
       {/* <i class="fa-solid fa-ellipsis"></i> */}
       {/* <div className="header-notes "></div> */}
-      <div className="note-header-ui flex">
+      <div className=" flex space-between note-header-ui ">
         <ul className="note-header-settings clean-list flex">
           <li className="note-settings-gear flex align-center justify-center">
             <i className="fa-solid fa-gear"></i>
@@ -17,7 +17,7 @@ export default function NoteHeader() {
           </li>
         </ul>
 
-        <form className="note-header-search-form flex">
+        <form className="flex note-header-search-form">
           <input
             className="note-search-form-input"
             type="search"
