@@ -1,8 +1,12 @@
+import { MailPreview } from "../cmps/mail-preview.jsx"
 
-export function MailList() {
+    export function MailList({ mails }) {
 
-    return (
-        <h1>dfgfgdhfgh</h1>
-    )
-    
-}
+        return (
+            <section className="mails-list">
+                {mails.map(mail => <MailPreview
+                    mail={mail}
+                    key={mail.id}/>)}
+            </section>
+        )
+    }
