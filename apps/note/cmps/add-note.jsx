@@ -44,11 +44,15 @@ export default class AddNote extends React.Component {
 
   handleClick = (type) => {
     this.setState({ inputType: type })
-
+    this.addMouseListner()
     // todo load the form
-
   }
-
+  addMouseListner = () => {
+    window.addEventListener("click", this.handleCloseDynamicComponent)
+  }
+  handleCloseDynamicComponent = (ev) => {
+    console.log(ev.target.className)
+  }
   onChangeVal = (idx, val) => {
     console.log("Parent - SurveyApp got:", val, "idx:", idx)
     const answers = this.state.answers.map((a, currIdx) =>
@@ -62,33 +66,37 @@ export default class AddNote extends React.Component {
     const { DynamicCmp, onChangeVal, handleClick } = this
     return (
       <section className="flex justify-center add-note">
-        <div className="flex add-note-type">
-          <button
-            className="add-note-type text-btn"
-            onClick={() => handleClick("text")}
-          >
-            Take a note...
-          </button>
-          <button
-            className="add-note-type img-btn"
-            onClick={() => handleClick("image")}
-          >
-            <i className="fas fa-image"></i>
-          </button>
-          <button
-            className="add-note-type yt-btn"
-            onClick={() => handleClick("iframe")}
-          >
-            <i className="fab fa-youtube"></i>
-          </button>
-          <button
-            className="add-note-type todo-btn"
-            onClick={() => handleClick("todo")}
-          >
-            <i className="far fa-check-square"></i>
-          </button>
-        </div>
-        <DynamicCmp name={'Baba'} />
+        {!inputType ? (
+          <div className="flex add-note-type">
+            <button
+              className="add-note-type text-btn"
+              onClick={() => handleClick("text")}
+            >
+              Take a note...
+            </button>
+            <button
+              className="add-note-type img-btn"
+              onClick={() => handleClick("image")}
+            >
+              <i className="fas fa-image"></i>
+            </button>
+            <button
+              className="add-note-type yt-btn"
+              onClick={() => handleClick("iframe")}
+            >
+              <i className="fab fa-youtube"></i>
+            </button>
+            <button
+              className="add-note-type todo-btn"
+              onClick={() => handleClick("todo")}
+            >
+              <i className="far fa-check-square"></i>
+            </button>
+          </div>
+        ) : (
+          ""
+        )}
+        <DynamicCmp name={"Baba"} />
       </section>
     )
   }
