@@ -13,12 +13,15 @@
 // in progress - gather colors
 // todo - gather icons
 // todo - gather notes[{...}] meta data to render some basic content and skeleton
+import NoteHeader from "../cmps/note-header.jsx"
 
 export class NoteIndex extends React.Component {
     render() {
         return (
-            <div className="note-app">
-                
+            <div className="note-app" style={{fontFamily:'product-sans' , fontSize:'22px',color:'var(--font-clr)'}}>
+                {/* Keep */}
+                {/* <i class="fa-solid fa-magnifying-glass" style={{color:'red'}}></i> */}
+                <NoteHeader />
             </div>
         )
     }

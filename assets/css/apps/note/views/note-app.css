@@ -1,0 +1,44 @@
+:root {
+  --font-clr: #5f6368;
+}
+
+@font-face {
+  font-family: product-sans;
+  src: url(../../../../fonts/Product\ Sans\ Regular.ttf);
+}
+
+/* @import './apps/note/cmps/note-header.css'; */
+
+/* @import "../cmps/note-list.css"; */
+/* @import './apps/note/views/note-app.css'; */
+/* @import "./cmps/note-header.css" */
+/* @import "assets/css/apps/note/cmps/note-header.css";  */
+
+/* @import '../cmps/note-header.css'; */
+
+.note-header{
+    padding: 0.5rem;
+    width: 100%;
+}
+.note-header-ui{
+
+    width: 100%;
+}
+.note-header-settings>li{
+    width: 48px;
+    height: 48px;
+}
+.flex.note-header-search-form{
+    flex: 1 1;
+    justify-content: end;
+}
+.note-header-search-form{
+    width: 100%;
+}
+.note-search-form-input{
+    max-width: 720px;
+    /* margin-inline-start: auto; */
+}
+.note-header-title-container{
+    padding-inline-start: 1.875rem;
+}
