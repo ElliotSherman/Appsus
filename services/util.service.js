@@ -65,7 +65,7 @@ function getMonthName(date) {
 }
 
 function makeRandName() {
-    var words = ['Yossi', 'Yaron', 'Matan', 'Elad', 'Yotam', 'Josh', 'Yoni', 'Tim', 'Eliot', 'Avner', 'Tal']
+    var words = ['Yossi', 'Yaron', 'Matan', 'Elad', 'Yotam', 'Josh', 'Yoni', 'Tim', 'Elliot', 'Avner', 'Tal']
     var txt = ''
     var size = 1
     while (size > 0) {
