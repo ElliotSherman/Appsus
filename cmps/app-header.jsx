@@ -6,10 +6,10 @@ export function AppHeader() {
             <h3>LOGO!</h3>
         </Link>
         <nav>
-            <NavLink exact to="/">Home</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink to="/mail">Mail</NavLink>
             <NavLink to="/notes">Notes</NavLink>
+            <NavLink to="/mail">Mail</NavLink>
+            <NavLink to="/about">About</NavLink>
+            <NavLink exact to="/">Home</NavLink>
         </nav>
     </header>
 }
