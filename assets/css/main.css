@@ -30,5 +30,6 @@
 @import "./apps/note/cmps/add-note.css";
 @import "./apps/note/cmps/note-preview.css";
 @import "./apps/note/cmps/note-controls.css";
+@import "./apps/note/cmps/note-form.css";
 
 /* Email Cmps */

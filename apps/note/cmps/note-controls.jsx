@@ -1,4 +1,4 @@
-export default function NoteControls({ handleSave, handleRemoveNote, id }) {
+export default function NoteControls({ handleSave, handleRemoveNote, id , handlePin , handleColor , handleLabel}) {
   return (
     <div className="flex space-between note-controls">
       {handleSave ? (
@@ -24,7 +24,11 @@ export default function NoteControls({ handleSave, handleRemoveNote, id }) {
           <i className="fas fa-trash-alt"></i>
         </button>
       )}
-      <button title="note color" className="note-btn note-btn-color">
+      <button title="note color" className="note-btn note-btn-color"
+                onClick={(ev) => {
+                  ev.preventDefault()
+                  handleColor(ev)
+                }}>
         <i className="fas fa-palette"></i>
       </button>
       <button title="clone note" className="note-btn note-btn-clone">

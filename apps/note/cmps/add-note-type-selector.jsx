@@ -5,25 +5,25 @@ export default function AddNoteTypeSelector(props) {
     <div className="flex add-note-type">
     <button
       className="add-note-type text-btn"
-      onClick={() => handleClick("text")}
+      onClick={() => handleClick("text" ,"Take a note...")}
     >
       Take a note...
     </button>
     <button
       className="add-note-type img-btn"
-      onClick={() => handleClick("image")}
+      onClick={() => handleClick("image" , "URL")}
     >
       <i className="fas fa-image"></i>
     </button>
     <button
       className="add-note-type yt-btn"
-      onClick={() => handleClick("iframe")}
+      onClick={() => handleClick("iframe", "URL")}
     >
       <i className="fab fa-youtube"></i>
     </button>
     <button
       className="add-note-type todo-btn"
-      onClick={() => handleClick("todo")}
+      onClick={() => handleClick("todo" , "Enter Comma seperated list")}
     >
       <i className="far fa-check-square"></i>
     </button>

@@ -1,8 +1,5 @@
 import AddNoteTypeSelector from "./add-note-type-selector.jsx"
-// import NoteImg from "./note-img.jsx"
 import NoteForm from "./note-form.jsx"
-// import NoteTodo from "./note-todos.jsx"
-// import NoteVideo from "./note-video.jsx"
 
 // ? image note
 // TODO - user clicks on img icon
@@ -21,32 +18,11 @@ export default class AddNote extends React.Component {
   state = {
     info: {},
     inputType: null,
+    placeHolder: "",
   }
 
-  componentDidMount() {
-    // this.setState((prevState) => {
-    //   info
-    // })
-  }
-  
-  // DynamicCmp = (props) => {
-  //   switch (this.state.inputType) {
-  //     case "text":
-  //       return <NoteForm {...props} />
-
-      // case "image":
-      //   return <NoteImg {...props} />
-
-      // case "iframe":
-      //   return <NoteVideo {...props} />
-
-      // case "todo":
-      //   return <NoteTodo {...props} />
-  //   }
-  // }
-
-  handleClick = (type) => {
-    this.setState({ inputType: type })
+  handleClick = (type, placeholderTxt) => {
+    this.setState({ inputType: type, placeHolder: placeholderTxt })
     this.addMouseListner()
   }
   addMouseListner = () => {
@@ -71,14 +47,64 @@ export default class AddNote extends React.Component {
     const { info, inputType } = this.state
     this.props.handleAddNote(info, inputType)
   }
+  handleColor = () => {
+    console.log("clicked btn")
+  }
+  handleLabel = () => {
+    console.log("clicked btn")
+  }
+  handlePin = () => {
+    console.log("clicked btn")
+  }
   render() {
-    const { inputType , placeHolder } = this.state
-    const { DynamicCmp, onChangeVal, handleClick, handleSave } = this
+    const { inputType, placeHolder } = this.state
+    const {
+      handlePin,
+      handleLabel,
+      handleColor,
+      onChangeVal,
+      handleClick,
+      handleSave,
+    } = this
     return (
       <section className="flex justify-center add-note">
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
-        {inputType ?<NoteForm type={inputType} handleChange={onChangeVal} handleSave={handleSave} />:''}
+        {inputType ? (
+          <NoteForm
+            placeholder={placeHolder}
+            type={inputType}
+            handleChange={onChangeVal}
+            handleSave={handleSave}
+            handleColor={handleColor}
+            handleLabel={handleLabel}
+            handlePin={handlePin}
+          />
+        ) : (
+          ""
+        )}
       </section>
     )
   }
 }
+
+// componentDidMount() {
+// this.setState((prevState) => {
+//   info
+// })
+// }
+
+// DynamicCmp = (props) => {
+//   switch (this.state.inputType) {
+//     case "text":
+//       return <NoteForm {...props} />
+
+// case "image":
+//   return <NoteImg {...props} />
+
+// case "iframe":
+//   return <NoteVideo {...props} />
+
+// case "todo":
+//   return <NoteTodo {...props} />
+//   }
+// }
