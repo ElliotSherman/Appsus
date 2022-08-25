@@ -1,6 +1,8 @@
 .note-header {
   padding: 0.5rem;
   width: 100%;
+  box-shadow: #00000061 0px 0.5px 0px 0.5px;
+  margin-bottom: 3rem;
 }
 .note-header-ui {
   width: 100%;
