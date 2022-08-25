@@ -28,13 +28,21 @@ export class MailApp extends React.Component {
         })
     }
 
+    onRemove = (mail) => {
+        // this.onGoBack()
+        // console.log('mail.isRemoved:', mail.isRemoved)
+        
+        mailService.removeMail(mail)
+            .then(() => this.loadMails())
+    }
+
     render() {
 
         const { mails } = this.state
         return (
             <section>
             <MailFilter onSetFilter={this.onSetFilter} />
-            <MailList mails={mails}/>
+            <MailList mails={mails} onRemove={this.onRemove}/>
             </section>
         )
     }

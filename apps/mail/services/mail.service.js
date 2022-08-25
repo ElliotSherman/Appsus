@@ -6,6 +6,7 @@ export const mailService = {
     removeMail,
     getMailIdx,
     toggleUnread,
+    getById,
 
 }
 
@@ -17,6 +18,14 @@ const loggedInUser = {
 const STORAGE_KEY = 'emails'
 let mailsDB = []
 
+const criteria = {
+    status: 'inbox/sent/trash/draft',
+    txt: 'puki',
+    isRead: true,
+    isStared: true,
+    lables: ['important', 'romantic']
+}
+
 function query(filterBy) {
     let mails = _loadFromStorage()
     if (!mails || !mails.length) {
@@ -24,11 +33,9 @@ function query(filterBy) {
         for (let i = 0; i < 10; i++) {
             mails[i] = _createMail()
         }
-        mailsDB = mails
-        console.log('mails:', mails);
         _saveToStorage(mails)
     }
-
+    mailsDB = mails
     if (filterBy) {
         let { bySearch, isRead } = filterBy
         if (!bySearch) bySearch = ''
@@ -39,6 +46,7 @@ function query(filterBy) {
             // mail.isRead
         ))
     }
+    console.log('mailsDB:', mailsDB);
     return Promise.resolve(mails)
 }
 
@@ -47,30 +55,44 @@ function _createMail() {
     const mail = {
 
         id: makeId(),
+        to: 'momo@momo.com',
         from: makeRandName(),
         subject: makeLorem(2),
         body: makeLorem(20),
         isRead: randomBoolean(),
+        isRemoved: false,
         sentAt: randomDate(new Date(2020, 0, 1), new Date()),
         receivedAt: randomDate(new Date(2020, 0, 1), new Date()),
-        to: 'momo@momo.com'
     }
     return mail
 }
 
 function toggleUnread(mail) {
-    console.log('HELLO from toggleUnread')
-    console.log('mail.isRead:', mail.isRead);
     mail.isRead = !mail.isRead
     _saveToStorage(mailsDB)
+    console.log('mail-id:', mail.id);
+    console.log('mail-isRead:', mail.isRead);
 }
 
 function removeMail(mail) {
     var idx = getMailIdx(mail.id)
-    mailsDB.splice(idx, 1)
-    console.log('mailsDb:', mailsDB);
-    _saveToStorage(mailsDB)
+    if (mail.isRemoved) {
+        mailsDB.splice(idx, 1)
+        _saveToStorage(mailsDB)
+    } else {
+        mailsDB[idx].isRemoved = true
+        _saveToStorage(mailsDB)
+    }
+    console.log('mail-id:', mail.id);
+    console.log('mail-isRemoved:', mail.isRemoved);
     return Promise.resolve()
+}
+
+function getById(mailId) {
+    if (!mailId) return Promise.resolve(null)
+    const mails = _loadFromStorage()
+    const mail = mails.find(mail => mailId === mail.id)
+    return Promise.resolve(mail)
 }
 
 function getMailIdx(mailId) {
@@ -81,6 +103,6 @@ function _loadFromStorage() {
     return storageService.loadFromStorage(STORAGE_KEY)
 }
 
-function _saveToStorage(mails) {
-    storageService.saveToStorage(STORAGE_KEY, mails)
+function _saveToStorage(mailsDB) {
+    storageService.saveToStorage(STORAGE_KEY, mailsDB)
 }
