@@ -5,7 +5,8 @@ export const gNotes = [
       id: "n101",
       type: "text",
       isPinned: true,
-      info: { text: "Fullstack Me Baby!" },
+      info: { title: "Bobi and Me",
+      text: "Fullstack Me Baby!" },
     },
     {
       id: "n102",

@@ -18,7 +18,8 @@ import AddNote from "../cmps/add-note.jsx"
 import NoteHeader from "../cmps/note-header.jsx"
 import NoteList from "../cmps/note-list.jsx"
 import { noteService } from "../services/note.service.js"
-const { addNote } = noteService
+
+const { addNote ,removeNote } = noteService
 export class NoteIndex extends React.Component {
   state = {
     notes: [],
@@ -33,21 +34,25 @@ export class NoteIndex extends React.Component {
       return this.setState({ notes })
     })
   }
-  
+
   handleAddNote = (info, type) => {
     addNote(info, type)
     this.loadNotes()
     // todo - show success notification
   }
-
+  handleRemoveNote=(noteId)=>{
+    // console.log('clicked remove' , ev)
+    removeNote(noteId)
+    this.loadNotes()
+  }
   render() {
     const { notes } = this.state
-    const { handleAddNote } = this
+    const { handleAddNote, handleRemoveNote } = this
     return (
       <div className="note-app">
         <NoteHeader />
-        <AddNote handleAddNote={handleAddNote} />
-        <NoteList notes={notes} />
+        <AddNote handleAddNote={handleAddNote}/>
+        <NoteList notes={notes} handleRemoveNote={handleRemoveNote}/>
       </div>
     )
   }
