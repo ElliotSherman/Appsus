@@ -7,6 +7,7 @@ import NoteVideo from "./note-video.jsx"
 // ? image note
 // TODO - user clicks on img icon
 // TODO - make an img text input if user clicks img for title after hitting enter or clicking upload image allow user to upload an img
+
 // ? text note
 // DONE - make a title and text input if user just starts to type
 // DONE - user types in text we need to save the inputs title and text
@@ -21,12 +22,13 @@ export default class AddNote extends React.Component {
     info: {},
     inputType: null,
   }
-  
+
   componentDidMount() {
     // this.setState((prevState) => {
     //   info
     // })
   }
+  
   DynamicCmp = (props) => {
     switch (this.state.inputType) {
       case "text":
@@ -54,7 +56,7 @@ export default class AddNote extends React.Component {
     // console.log(ev.target)
   }
 
-  onChangeVal = ({target}) => {
+  onChangeVal = ({ target }) => {
     // if(ev.target.clickedsave === 'save')console.log('clicked save')
     const field = target.name
     const value = target.type === "number" ? +target.value : target.value
@@ -62,13 +64,12 @@ export default class AddNote extends React.Component {
       info: {
         ...prevState.info,
         [field]: value,
-
       },
     }))
   }
   handleSave = () => {
-    const {info , inputType} = this.state
-    this.props.handleAddNote(info , inputType)
+    const { info, inputType } = this.state
+    this.props.handleAddNote(info, inputType)
   }
   render() {
     const { inputType } = this.state
@@ -76,7 +77,7 @@ export default class AddNote extends React.Component {
     return (
       <section className="flex justify-center add-note">
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
-        <DynamicCmp handleChange={onChangeVal} handleSave={handleSave} />
+        <DynamicCmp type={inputType} handleChange={onChangeVal} handleSave={handleSave} />
       </section>
     )
   }

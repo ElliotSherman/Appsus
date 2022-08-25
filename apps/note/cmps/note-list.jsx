@@ -2,7 +2,7 @@ import { utilService } from "../../../services/util.service.js"
 import NotePreview from "../cmps/note-preview.jsx"
 const { getRandomIntInclusive, makeId } = utilService
 
-export default function NoteList({ notes }) {
+export default function NoteList({ notes , handleRemoveNote }) {
   console.log(notes)
   let notesClasses = () => {
     let classes = []
@@ -15,7 +15,7 @@ export default function NoteList({ notes }) {
   return (
     <div className=" note-list">
       <div className="note-list-layout">
-        {notes.map(note => <NotePreview key={note.id} note={note} />)}
+        {notes.map(note => <NotePreview key={note.id} note={note} handleRemoveNote={handleRemoveNote}/>)}
       </div>
     </div>
   )
