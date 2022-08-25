@@ -1,4 +1,5 @@
 import { utilService } from "../../../services/util.service.js"
+import NotePreview from "../cmps/note-preview.jsx"
 const { getRandomIntInclusive, makeId } = utilService
 
 export default function NoteList({ notes }) {
@@ -19,13 +20,7 @@ export default function NoteList({ notes }) {
           //   <div key={num.id} className={`${"note level-"}${num.class}`}></div>
           // ))
         }
-
-        {notes.map((note) => (
-          // <div key={note.id} className={`${"note level-1"} ${note.class}`}>
-          <div key={note.id} className={`${"note level-1"}`} style={{overflow:'hidden'}}>
-            <pre>{JSON.stringify(note)}</pre>
-          </div>
-        ))}
+        {notes.map(note => <NotePreview key={note.id} note={note} />)}
       </div>
     </div>
   )
