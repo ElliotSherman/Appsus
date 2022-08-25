@@ -15,11 +15,6 @@ export default function NoteList({ notes }) {
   return (
     <div className=" note-list">
       <div className="note-list-layout">
-        {
-          // notesClasses().map((num) => (
-          //   <div key={num.id} className={`${"note level-"}${num.class}`}></div>
-          // ))
-        }
         {notes.map(note => <NotePreview key={note.id} note={note} />)}
       </div>
     </div>

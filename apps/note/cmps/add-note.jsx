@@ -10,20 +10,22 @@ import NoteVideo from "./note-video.jsx"
 // ? text note
 // DONE - make a title and text input if user just starts to type
 // DONE - user types in text we need to save the inputs title and text
+// DONE - after the user clicks save, the new note is added to the db and is rendered to the list of notes
+
+// in progress - after user click 'take a note' use Ref to select input
 // todo - style the inputs form
 // todo - style the input form controls
-// in progress - after the user clicks save, the new note is added to the db and is rendered to the list of notes
 
 export default class AddNote extends React.Component {
   state = {
-    answers: [],
+    info: {},
     inputType: null,
   }
-
+  
   componentDidMount() {
-    this.setState({
-      answers: new Array(2).fill(null),
-    })
+    // this.setState((prevState) => {
+    //   info
+    // })
   }
   DynamicCmp = (props) => {
     switch (this.state.inputType) {
@@ -40,6 +42,7 @@ export default class AddNote extends React.Component {
         return <NoteTodo {...props} />
     }
   }
+
   handleClick = (type) => {
     this.setState({ inputType: type })
     this.addMouseListner()
@@ -48,23 +51,32 @@ export default class AddNote extends React.Component {
     window.addEventListener("click", this.handleCloseDynamicComponent)
   }
   handleCloseDynamicComponent = (ev) => {
-    console.log(ev.target.className)
-  }
-  onChangeVal = (ev) => {
-    const { value, name } = ev.target
-    const answers = this.state.answers.map((a, currIdx) =>
-      currIdx !== +name ? a : value
-    )
-    this.setState({ answers })
+    // console.log(ev.target)
   }
 
+  onChangeVal = ({target}) => {
+    // if(ev.target.clickedsave === 'save')console.log('clicked save')
+    const field = target.name
+    const value = target.type === "number" ? +target.value : target.value
+    this.setState((prevState) => ({
+      info: {
+        ...prevState.info,
+        [field]: value,
+
+      },
+    }))
+  }
+  handleSave = () => {
+    const {info , inputType} = this.state
+    this.props.handleAddNote(info , inputType)
+  }
   render() {
     const { inputType } = this.state
-    const { DynamicCmp, onChangeVal, handleClick } = this
+    const { DynamicCmp, onChangeVal, handleClick, handleSave } = this
     return (
       <section className="flex justify-center add-note">
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
-        <DynamicCmp handleChange={onChangeVal} />
+        <DynamicCmp handleChange={onChangeVal} handleSave={handleSave} />
       </section>
     )
   }

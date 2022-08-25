@@ -7,7 +7,7 @@ const { makeId, makeLorem, getRandomIntInclusive, randomBoolean } = utilService
 export const noteService = {
   query,
   getById,
-  addNoteOrTodo,
+  addNote,
   removeNoteOrTodo,
 }
 console.log(gNotes)
@@ -111,17 +111,16 @@ function removeNoteOrTodo(todoId, noteId) {
   return Promise.resolve(books)
 }
 
-function addNoteOrTodo(noteId, todo) {
+function addNote(info , type) {
+  let vals = []
+  for(const key in info){
+    vals.push(info[key])
+  }
+  const _isValid = (val) => val 
+  if(!vals.some(_isValid))return Promise.resolve()
+  const note = {id:makeId(), info:{...info} , type }
   let notes = _loadFromStorage()
-  notes.map((note) => {
-    if (note.id === noteId) {
-      if (!note["todos"]) {
-        note["todos"] = [{ ...todo, id: makeId() }]
-      } else {
-        note["todos"] = [{ ...todo, id: makeId() }, ...note.todos]
-      }
-    }
-  })
+  notes = [note , ...notes]
   _saveToStorage(notes)
   return Promise.resolve(notes)
 }
