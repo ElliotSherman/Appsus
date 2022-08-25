@@ -1,8 +1,8 @@
 import { utilService } from "../../../services/util.service.js"
-import storageService from "../../../services/storage.service.js"
+import { storageService } from "../../../services/storage.service.js"
 
 import { gNotes } from "./notes.data.js"
-
+const { loadFromStorage, saveToStorage } = storageService
 const { makeId, makeLorem, getRandomIntInclusive, randomBoolean } = utilService
 export const noteService = {
   query,
@@ -11,12 +11,13 @@ export const noteService = {
   removeNoteOrTodo,
 }
 console.log(gNotes)
-// todo - return to index the array of notes
-// todo - save the db to local storage
-// todo - make the index display the notes from the storage
-// todo - make the note form add a note to the db
-// todo - give the note delete function
-// todo - style the notes
+// Done - return to index the array of notes
+// Done - save the db to local storage
+// Done - make the index display the notes from the storage
+
+// in progress - make the note form add a note to the db
+// in progress - give the note delete function
+// in progress - style the notes
 //
 const KEY = "notesDB"
 
@@ -62,7 +63,6 @@ function query(filterBy) {
   let notes = _loadFromStorage(KEY)
   if (!notes) {
     notes = [...gNotes]
-    console.log(gNotes)
     _saveToStorage(notes)
   }
   // TODO - add search filter here you can add more functionality like sorting by date or a-z
@@ -127,9 +127,9 @@ function addNoteOrTodo(noteId, todo) {
 }
 
 function _loadFromStorage() {
-  return storageService.loadFromStorage(KEY)
+  return loadFromStorage(KEY)
 }
 
 function _saveToStorage(notes) {
-  return storageService.saveToStorage(KEY, notes)
+  return saveToStorage(KEY, notes)
 }

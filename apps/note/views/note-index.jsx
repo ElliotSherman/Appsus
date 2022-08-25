@@ -17,7 +17,7 @@
 import AddNote from "../cmps/add-note.jsx"
 import NoteHeader from "../cmps/note-header.jsx"
 import NoteList from "../cmps/note-list.jsx"
-import { noteService } from "../services/note.service.js"
+import  {noteService}  from "../services/note.service.js"
 
 export class NoteIndex extends React.Component {
     state = {
@@ -32,9 +32,7 @@ export class NoteIndex extends React.Component {
 
     loadNotes=()=>{
         noteService.query(this.state.filterBy).then((notes)=>{
-            return this.setState({filterBy},() =>{
-                this.loadNotes()
-            })
+            return this.setState({notes})
         })
     }
     render() {
