@@ -7,16 +7,13 @@ export const mailService = {
     getMailIdx,
     toggleUnread,
     getById,
-
+    countUnread,
 }
 
 const loggedInUser = {
     email: 'user@appsus.com',
     fullName: 'Mahatma Appsus'
 }
-
-const STORAGE_KEY = 'emails'
-let mailsDB = []
 
 const criteria = {
     status: 'inbox/sent/trash/draft',
@@ -25,6 +22,10 @@ const criteria = {
     isStared: true,
     lables: ['important', 'romantic']
 }
+
+var unreadCount
+const STORAGE_KEY = 'emails'
+let mailsDB = []
 
 function query(filterBy) {
     let mails = _loadFromStorage()
@@ -36,6 +37,8 @@ function query(filterBy) {
         _saveToStorage(mails)
     }
     mailsDB = mails
+    countUnread()
+    console.log('unreadCount:', unreadCount)
     if (filterBy) {
         let { bySearch, isRead } = filterBy
         if (!bySearch) bySearch = ''
@@ -46,7 +49,7 @@ function query(filterBy) {
             // mail.isRead
         ))
     }
-    console.log('mailsDB:', mailsDB);
+    console.log('mailsDB:', mailsDB)
     return Promise.resolve(mails)
 }
 
@@ -59,19 +62,12 @@ function _createMail() {
         from: makeRandName(),
         subject: makeLorem(2),
         body: makeLorem(20),
-        isRead: randomBoolean(),
+        isRead: false,
         isRemoved: false,
         sentAt: randomDate(new Date(2020, 0, 1), new Date()),
         receivedAt: randomDate(new Date(2020, 0, 1), new Date()),
     }
     return mail
-}
-
-function toggleUnread(mail) {
-    mail.isRead = !mail.isRead
-    _saveToStorage(mailsDB)
-    console.log('mail-id:', mail.id);
-    console.log('mail-isRead:', mail.isRead);
 }
 
 function removeMail(mail) {
@@ -83,8 +79,7 @@ function removeMail(mail) {
         mailsDB[idx].isRemoved = true
         _saveToStorage(mailsDB)
     }
-    console.log('mail-id:', mail.id);
-    console.log('mail-isRemoved:', mail.isRemoved);
+    console.log('mail-from:', mail.from, 'isRemoved:', mail.isRemoved)
     return Promise.resolve()
 }
 
@@ -95,11 +90,40 @@ function getById(mailId) {
     return Promise.resolve(mail)
 }
 
+function toggleUnread(mail) {
+    if (!mail.isRead) {
+        mail.isRead = true
+        unreadCount--
+        _saveToStorage(mailsDB)
+    } else {
+        mail.isRead = false
+        unreadCount++
+        _saveToStorage(mailsDB)
+    }
+    console.log('mail-from:', mail.from, '| isRead:', mail.isRead)
+    console.log('unreadCount:', unreadCount)
+}
+
+function countUnread() {
+    console.log('mailsDB:', mailsDB)
+    
+    if (!unreadCount) {
+        let unread = 0
+        for (var i = 0; i < mailsDB.length; i++) {
+            if (!mailsDB[i].isRead) unread++
+        }
+        unreadCount = unread
+    }
+    // console.log('unreadCount:', unreadCount);
+    return unreadCount
+}
+
 function getMailIdx(mailId) {
     return mailsDB.findIndex(mail => mail.id === mailId)
 }
 
 function _loadFromStorage() {
+
     return storageService.loadFromStorage(STORAGE_KEY)
 }
 

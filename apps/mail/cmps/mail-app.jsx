@@ -29,12 +29,14 @@ export class MailApp extends React.Component {
     }
 
     onRemove = (mail) => {
-        // this.onGoBack()
-        // console.log('mail.isRemoved:', mail.isRemoved)
-        
         mailService.removeMail(mail)
             .then(() => this.loadMails())
     }
+
+    // onToggleRead = (mail) => {
+    //     mailService.removeMail(mail)
+    //         .then(() => this.loadMails())
+    // }
 
     render() {
 
