@@ -35,6 +35,7 @@ export class MailFilter extends React.Component {
     render() {
         const { bySearch, isRead } = this.state.filterBy
         return (
+            <section className="filter-container">
             <form className="mails-filter" onSubmit={this.onFilter}>
                 <label htmlFor="search"></label>
                 <input
@@ -56,6 +57,7 @@ export class MailFilter extends React.Component {
                     <option value={false}>Unread</option>
                 </select>
             </form>
+            </section>
         )
     }
 }

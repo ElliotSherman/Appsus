@@ -1,12 +1,13 @@
 import { MailFilter } from "../cmps/mail-filter.jsx"
 import { MailList } from "../cmps/mail-list.jsx"
 import { mailService } from "../services/mail.service.js"
+import { FolderList } from "../cmps/mail-folder-list.jsx"
 
 const Router = ReactRouterDOM.HashRouter
 const { Route, Switch } = ReactRouterDOM
 
 export class MailApp extends React.Component {
-    
+
     state = {
         mails: [],
         filterBy: null,
@@ -42,10 +43,12 @@ export class MailApp extends React.Component {
 
         const { mails } = this.state
         return (
-            <section>
-            <MailFilter onSetFilter={this.onSetFilter} />
-            <MailList mails={mails} onRemove={this.onRemove}/>
+            <section className="mail-app">
+                <MailFilter onSetFilter={this.onSetFilter} />
+                <FolderList />
+                <MailList mails={mails} onRemove={this.onRemove} />
             </section>
         )
+
     }
 }

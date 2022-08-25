@@ -5,7 +5,7 @@ const { Link } = ReactRouterDOM
 export function MailPreview({ mail, onRemove }) {
 
     return (
-        <section>
+        <section className="mail-preview">
             <Link to={"/mail/" + mail.id}>
                 <article className="mail-preview">
                     <h3>{mail.from}</h3>
