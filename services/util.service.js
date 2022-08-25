@@ -8,7 +8,8 @@ export const utilService = {
     getMonthName,
     makeRandName,
     randomDate,
-    randomBoolean
+    randomBoolean,
+    showTime
 }
 
 function makeId(length = 6) {
@@ -79,6 +80,14 @@ function randomBoolean() {
 return (Math.random() < 0.5)
 }
 
-function randomDate(start, end) {
+function randomDate(start = new Date(2020, 0, 1), end = new Date()) {
     return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+}
+
+function showTime(sentAt = randomDate()) {
+    const diff = Date.now() - sentAt;
+    const day = 24 * 60 * 60 * 1000
+    const date = new Date(sentAt)
+    if (diff < day) return `${date.getHours()}:${date.getMinutes()}`
+    else return `${date.getDate()} ${date.toLocaleString('en', { month: 'short' })}`
 }

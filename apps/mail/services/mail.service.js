@@ -54,7 +54,7 @@ function query(filterBy) {
 }
 
 function _createMail() {
-    const { makeId, makeLorem, makeRandName, randomDate, randomBoolean } = utilService
+    const { makeId, makeLorem, makeRandName, randomDate, showTime } = utilService
     const mail = {
 
         id: makeId(),
@@ -64,8 +64,8 @@ function _createMail() {
         body: makeLorem(20),
         isRead: false,
         isRemoved: false,
-        sentAt: randomDate(new Date(2020, 0, 1), new Date()),
-        receivedAt: randomDate(new Date(2020, 0, 1), new Date()),
+        sentAt: randomDate(),
+        receivedAt: randomDate(),
     }
     return mail
 }
