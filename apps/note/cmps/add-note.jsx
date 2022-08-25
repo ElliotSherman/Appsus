@@ -1,8 +1,8 @@
 import AddNoteTypeSelector from "./add-note-type-selector.jsx"
-import NoteImg from "./note-img.jsx"
-import NoteText from "./note-text.jsx"
-import NoteTodo from "./note-todos.jsx"
-import NoteVideo from "./note-video.jsx"
+// import NoteImg from "./note-img.jsx"
+import NoteForm from "./note-form.jsx"
+// import NoteTodo from "./note-todos.jsx"
+// import NoteVideo from "./note-video.jsx"
 
 // ? image note
 // TODO - user clicks on img icon
@@ -29,21 +29,21 @@ export default class AddNote extends React.Component {
     // })
   }
   
-  DynamicCmp = (props) => {
-    switch (this.state.inputType) {
-      case "text":
-        return <NoteText {...props} />
+  // DynamicCmp = (props) => {
+  //   switch (this.state.inputType) {
+  //     case "text":
+  //       return <NoteForm {...props} />
 
-      case "image":
-        return <NoteImg {...props} />
+      // case "image":
+      //   return <NoteImg {...props} />
 
-      case "iframe":
-        return <NoteVideo {...props} />
+      // case "iframe":
+      //   return <NoteVideo {...props} />
 
-      case "todo":
-        return <NoteTodo {...props} />
-    }
-  }
+      // case "todo":
+      //   return <NoteTodo {...props} />
+  //   }
+  // }
 
   handleClick = (type) => {
     this.setState({ inputType: type })
@@ -72,12 +72,12 @@ export default class AddNote extends React.Component {
     this.props.handleAddNote(info, inputType)
   }
   render() {
-    const { inputType } = this.state
+    const { inputType , placeHolder } = this.state
     const { DynamicCmp, onChangeVal, handleClick, handleSave } = this
     return (
       <section className="flex justify-center add-note">
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
-        <DynamicCmp type={inputType} handleChange={onChangeVal} handleSave={handleSave} />
+        {inputType ?<NoteForm type={inputType} handleChange={onChangeVal} handleSave={handleSave} />:''}
       </section>
     )
   }
