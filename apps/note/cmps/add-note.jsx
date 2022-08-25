@@ -1,4 +1,3 @@
-import { surveyService } from "../../../services/survey.service.js"
 import AddNoteTypeSelector from "./add-note-type-selector.jsx"
 import NoteImg from "./note-img.jsx"
 import NoteText from "./note-text.jsx"
@@ -10,26 +9,21 @@ import NoteVideo from "./note-video.jsx"
 // TODO - make an img text input if user clicks img for title after hitting enter or clicking upload image allow user to upload an img
 // ? text note
 // DONE - make a title and text input if user just starts to type
+// DONE - user types in text we need to save the inputs title and text
 // todo - style the inputs form
 // todo - style the input form controls
-// todo - user types in text we need to save the inputs title and text
-// todo - after the user clicks save, the new note is added to the db and is rendered to the list of notes
-// todo - 
+// in progress - after the user clicks save, the new note is added to the db and is rendered to the list of notes
 
 export default class AddNote extends React.Component {
   state = {
-    // survey: null,
     answers: [],
     inputType: null,
   }
 
   componentDidMount() {
-    // surveyService.getById().then((survey) => {
-      this.setState({
-        // survey,
-        answers: new Array(2).fill(null),
-      })
-    // })
+    this.setState({
+      answers: new Array(2).fill(null),
+    })
   }
   DynamicCmp = (props) => {
     switch (this.state.inputType) {
@@ -57,10 +51,13 @@ export default class AddNote extends React.Component {
     console.log(ev.target.className)
   }
   onChangeVal = (ev) => {
-    const {value , name } = ev.target
-    const answers = this.state.answers.map((a, currIdx) => (currIdx !== +name) ? a : value)
+    const { value, name } = ev.target
+    const answers = this.state.answers.map((a, currIdx) =>
+      currIdx !== +name ? a : value
+    )
     this.setState({ answers })
   }
+
   render() {
     const { inputType } = this.state
     const { DynamicCmp, onChangeVal, handleClick } = this
