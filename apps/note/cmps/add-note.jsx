@@ -1,35 +1,61 @@
 import AddNoteTypeSelector from "./add-note-type-selector.jsx"
 import NoteForm from "./note-form.jsx"
+// ? image note and video
+// DONE - user clicks on img icon
+// DONE - make an img text input if user clicks img for title after hitting enter or clicking upload image allow user to upload an img
 
-// ? image note
-// TODO - user clicks on img icon
-// TODO - make an img text input if user clicks img for title after hitting enter or clicking upload image allow user to upload an img
-
-// ? text note
+// ? text note & todo
 // DONE - make a title and text input if user just starts to type
 // DONE - user types in text we need to save the inputs title and text
 // DONE - after the user clicks save, the new note is added to the db and is rendered to the list of notes
+// Done - style the inputs form
+// DONE - style the input form controls
 
-// in progress - after user click 'take a note' use Ref to select input
-// todo - style the inputs form
-// todo - style the input form controls
+// todo - after user click 'take a note' use Ref to select input
+// in progress - close form when click outside of the form
 
 export default class AddNote extends React.Component {
   state = {
     info: {},
     inputType: null,
-    placeHolder: "",
+    placeHolder: null,
+  }
+
+  componentDidMount() {
+    // this.setState((prev, curr) => ({
+    //   ...prev,
+    // }))
   }
 
   handleClick = (type, placeholderTxt) => {
-    this.setState({ inputType: type, placeHolder: placeholderTxt })
+    console.log("clicked", type , placeholderTxt)
+    this.setState(({inputType: type, placeHolder: placeholderTxt }))
     this.addMouseListner()
   }
+
+  closeForm = () => {
+    this.handleClick('','')
+    window.removeEventListener("click", this.handleCloseDynamicComponent, {
+      passive: true,
+    })
+  }
+
   addMouseListner = () => {
     window.addEventListener("click", this.handleCloseDynamicComponent)
   }
+
   handleCloseDynamicComponent = (ev) => {
-    // console.log(ev.target)
+    // console.log(ev.target.parentElement)
+    const { closeForm } = this
+    $("body").click(function (ev) {
+      if (ev.target.id == "myDiv" || $(ev.target).parents("#myDiv").length) {
+        // alert("Inside div");
+        return
+      } else {
+        // alert("Outside div");
+        closeForm()
+      }
+    })
   }
 
   onChangeVal = ({ target }) => {
@@ -67,7 +93,8 @@ export default class AddNote extends React.Component {
       handleSave,
     } = this
     return (
-      <section className="flex justify-center add-note">
+      <section id="myDiv" className="flex justify-center add-note">
+        {/* <div>{inputType}</div> */}
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
         {inputType ? (
           <NoteForm
@@ -86,25 +113,3 @@ export default class AddNote extends React.Component {
     )
   }
 }
-
-// componentDidMount() {
-// this.setState((prevState) => {
-//   info
-// })
-// }
-
-// DynamicCmp = (props) => {
-//   switch (this.state.inputType) {
-//     case "text":
-//       return <NoteForm {...props} />
-
-// case "image":
-//   return <NoteImg {...props} />
-
-// case "iframe":
-//   return <NoteVideo {...props} />
-
-// case "todo":
-//   return <NoteTodo {...props} />
-//   }
-// }

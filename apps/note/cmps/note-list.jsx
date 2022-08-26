@@ -11,7 +11,7 @@ export default function NoteList({ notes , handleRemoveNote }) {
     }
     return classes
   }
-
+  
   return (
     <div className=" note-list">
       <div className="note-list-layout">
