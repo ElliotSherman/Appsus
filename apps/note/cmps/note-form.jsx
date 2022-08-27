@@ -3,11 +3,7 @@ export default class NoteForm extends React.Component {
   state = {
     info: { title: "", text: "" },
   }
-  componentDidMount() {
-    this.setState({
-      info: { ...this.props.info },
-    })
-  }
+
   handleFormChange = ({ target }) => {
     const field = target.name
     const value = target.type === "number" ? +target.value : target.value
@@ -69,27 +65,3 @@ export default class NoteForm extends React.Component {
     )
   }
 }
-
-// import NoteControls from "./note-controls.jsx"
-
-// export default function NoteForm({
-//   handleChange,
-//   handleSave,
-//   placeholder,
-//   handleColor,
-//   handlePin,
-//   handleLabel,
-// }) {
-//   return (
-//     <form className="flex column add-note note-form" onChange={(ev) => handleChange(ev)}>
-//       <input placeholder="Title" type="text" name="title" />
-//       <input placeholder={placeholder} type="text" name="text" />
-//       <NoteControls
-//         handleSave={handleSave}
-//         handleColor={handleColor}
-//         handleLabel={handleLabel}
-//         handlePin={handlePin}
-//       />
-//     </form>
-//   )
-// }

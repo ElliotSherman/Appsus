@@ -8,4 +8,5 @@ export default function NoteText({ note }) {
     </div>
   )
 }
+
 {/* <div className="add-note note-text" onChange={(ev) => handleChange(ev)}> */}

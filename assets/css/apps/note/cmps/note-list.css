@@ -7,6 +7,7 @@
   /* justify-items: center; */
   /* grid-auto-flow:dense; */
   grid-template-columns: repeat(auto-fit, 360px);
+  margin-bottom: 4rem;
 }
 .note {
   background-color: aqua;
