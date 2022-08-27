@@ -19,7 +19,7 @@ export const gNotes = [
   },
   {
     id: "n103",
-    type: "todo",
+    type: "todos",
     info: {
       title:'my todos',
       label: "Get my stuff together",

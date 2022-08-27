@@ -15,7 +15,7 @@ export default class TodoLi extends React.Component {
           </span>
         ) : (
           <span>
-            <i class="far fa-check-square"></i>
+            <i className="far fa-check-square"></i>
           </span>
         )}
         {todo.text}

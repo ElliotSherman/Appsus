@@ -3,7 +3,7 @@ import NotePreview from "../cmps/note-preview.jsx"
 const { getRandomIntInclusive, makeId } = utilService
 
 export default function NoteList({ notes , handleRemoveNote }) {
-  console.log(notes)
+  // console.log(notes)
   let notesClasses = () => {
     let classes = []
     for (let i = 0; i < 40; i++) {

@@ -64,7 +64,7 @@ export default class NotePreview extends React.Component {
         style={{ overflow: "hidden", background: `${background}` }}
       >
         <div className="flex column note-preview-content">
-          {console.log(note.type)}
+          {/* {console.log(note.type)} */}
           <DynamicCmp note={note} />
           <NoteControls
             handleRemoveNote={handleRemoveNote}
