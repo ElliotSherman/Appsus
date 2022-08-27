@@ -21,4 +21,3 @@ export default class NoteTodo extends React.Component {
     )
   }
 }
-
