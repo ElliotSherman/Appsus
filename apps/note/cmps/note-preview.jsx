@@ -24,7 +24,7 @@ export default class NotePreview extends React.Component {
       case "iframe":
         return <NoteVideo {...props} />
 
-      case "todo":
+      case "todos":
         return <NoteTodo {...props} />
     }
   }

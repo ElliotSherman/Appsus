@@ -23,7 +23,6 @@ export const noteService = {
 
 const KEY = "notesDB"
 
-
 function query(filterBy) {
   let notes = _loadFromStorage(KEY)
   if (!notes) {
@@ -81,13 +80,41 @@ function removeNote(noteId) {
 }
 
 function addNote(info, type) {
+  if (type === "todos") return addTodoNote(info, type)
+
   let vals = []
   for (const key in info) {
+    console.log("getting from add note", key, type)
     vals.push(info[key])
   }
   const _isValid = (val) => val
   if (!vals.some(_isValid)) return Promise.resolve()
+  console.log("info", { ...info })
   const note = { id: makeId(), type, info: { ...info } }
+  let notes = _loadFromStorage()
+  notes = [note, ...notes]
+  _saveToStorage(notes)
+  return Promise.resolve(notes)
+}
+
+function addTodoNote(info, type) {
+  let vals = []
+  for (const key in info) {
+    console.log("getting from addTodoNote", key, type)
+    vals.push(info[key])
+  }
+  const _isValid = (val) => val
+  if (!vals.some(_isValid)) return Promise.resolve()
+  let splitTodos = []
+  info.todos
+    .split(",")
+    .map((todo) => splitTodos.push({ text: todo, doneAt: null, id: makeId() }))
+  const note = {
+    id: makeId(),
+    type,
+    info: { title: info.title, todos: splitTodos },
+  }
+
   let notes = _loadFromStorage()
   notes = [note, ...notes]
   _saveToStorage(notes)
@@ -101,7 +128,6 @@ function _loadFromStorage() {
 function _saveToStorage(notes) {
   return saveToStorage(KEY, notes)
 }
-
 
 // let notesClasses = () => {
 //   let classes = []

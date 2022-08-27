@@ -53,7 +53,7 @@ export default class NoteForm extends React.Component {
             type === "image" || type === "iframe"
               ? "url"
               : type === "todos"
-              ? "todo"
+              ? "todos"
               : "text"
           }
           value={text}
