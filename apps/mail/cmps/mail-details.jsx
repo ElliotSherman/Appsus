@@ -25,7 +25,8 @@ export class MailDetails extends React.Component {
     }
 
     onGoBack = () => {
-        this.props.history.push('/mail')
+        this.props.history.goBack()
+        // this.props.history.push('/mail/')
     }
 
     render() {
