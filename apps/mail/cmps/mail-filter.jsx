@@ -11,14 +11,19 @@ export class MailFilter extends React.Component {
 
     inputRef = React.createRef()
 
-    goSearch = () => {
+    componentDidMount() {
         this.inputRef.current.focus()
     }
 
     handleChange = ({ target }) => {
         let field = target.name
         let value = target.value
-        if(field === 'isRead') value = value === 'true'
+        if(field === 'isRead') {
+            if (value !== "all") {
+                value = value === 'true'
+            }
+        }
+        
         this.setState((prevState) => ({
             filterBy: {
                 ...prevState.filterBy,
@@ -27,16 +32,11 @@ export class MailFilter extends React.Component {
         }), () => { this.props.onSetFilter(this.state.filterBy) })
     }
 
-    onFilter = (ev) => {
-        ev.preventDefault()
-        this.props.onSetFilter(this.state.filterBy)
-    }
-
     render() {
         const { bySearch, isRead } = this.state.filterBy
         return (
             <section className="filter-container">
-            <form className="mails-filter" onSubmit={this.onFilter}>
+            <form className="mails-filter">
                 <label htmlFor="search"></label>
                 <input
                     ref={this.inputRef}

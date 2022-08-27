@@ -1,24 +1,22 @@
+import { mailService } from '../services/mail.service.js'
 
-export class FolderList extends React.Component {
+const { NavLink } = ReactRouterDOM
 
-    state = {
+export function FolderList() {
 
-    }
-
-
-    render() {
-
-        return (
-            <section className="folder-list">
-                <div className="folders=btn">
-                    <button className="btn-compose">Compose</button>
-                    <button className="btn-inbox">Inbox</button>
-                    <button className="btn-sent">Sent</button>
-                    <button className="btn-drafts">Drafts</button>
-                    <button className="btn-trash">Trash</button>
-                </div>
-            </section>
-        )
-    }
+    return (
+        <section className="folder-list">
+            <div className="folders=btn">
+                <hr />
+                <nav>
+                    <NavLink to="/mail/compose">Compose</NavLink>
+                    <NavLink to="/mail/inbox">Inbox</NavLink>
+                    <NavLink to="/mail/sent">Sent</NavLink>
+                    <NavLink to="/mail/drafts">Drafts</NavLink>
+                    <NavLink to="/mail/trash">Trash</NavLink>
+                </nav>
+            </div >
+        </section >
+    )
 
 }

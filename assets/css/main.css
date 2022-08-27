@@ -37,3 +37,4 @@
 @import "./apps/note/cmps/note-video.css";
 
 /* Email Cmps */
+@import "/assets/css/apps/mail/cmps/mail-loading-spinner.css";
