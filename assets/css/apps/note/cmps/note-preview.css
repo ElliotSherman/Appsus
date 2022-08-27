@@ -9,16 +9,12 @@
     box-shadow: #00000061 0 0 6px 1px;
 }
 .note-preview-content>*:not(.note-controls){
-    margin: 0;
     padding-top: 0.75rem;
     padding-left: 1rem;
     padding-right: 1rem;
+    white-space: wrap;
 }
-/* .note-preview:last-child{ */
-    /* padding-bottom: 0.75rem; */
-    /* padding-left: 1rem; */
-    /* padding-right: 1rem; */
-/* } */
+
 .note-preview>:first-child{
     height: 100%;
     font-family: roboto;

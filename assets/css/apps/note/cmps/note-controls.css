@@ -1,10 +1,12 @@
 .note-controls{
+    flex: end;
     padding-bottom: 0.125rem;
     padding-left: 0.225rem;
     padding-right: 0.225rem;
     width: 100%;
 }
 .note-btn{
+    font-size: 1.2rem;
     background: none;
     color: inherit;
     border: none;
@@ -21,7 +23,4 @@
 .note-btn:hover{
     background-color: var(--bg-clr);
     border-radius: 50%;
-}
-.note-btn-remove{
-    
 }
