@@ -12,31 +12,25 @@ import NoteForm from "./note-form.jsx"
 // DONE - style the input form controls
 
 // todo - after user click 'take a note' use Ref to select input
+
 // in progress - close form when click outside of the form
 
 export default class AddNote extends React.Component {
   state = {
-    info: {},
     inputType: null,
     placeHolder: null,
   }
 
-  componentDidMount() {
-    // this.setState((prev, curr) => ({
-    //   ...prev,
-    // }))
-  }
-
   handleClick = (type, placeholderTxt) => {
     console.log("clicked", type , placeholderTxt)
-    this.setState(({inputType: type, placeHolder: placeholderTxt }))
+    this.setState({inputType: type, placeHolder: placeholderTxt })
     this.addMouseListner()
   }
 
   closeForm = () => {
     this.handleClick('','')
     window.removeEventListener("click", this.handleCloseDynamicComponent, {
-      passive: true,
+      passive: false,
     })
   }
 
@@ -58,19 +52,9 @@ export default class AddNote extends React.Component {
     })
   }
 
-  onChangeVal = ({ target }) => {
-    // if(ev.target.clickedsave === 'save')console.log('clicked save')
-    const field = target.name
-    const value = target.type === "number" ? +target.value : target.value
-    this.setState((prevState) => ({
-      info: {
-        ...prevState.info,
-        [field]: value,
-      },
-    }))
-  }
-  handleSave = () => {
-    const { info, inputType } = this.state
+  handleSave = (info) => {
+    console.log(info)
+    const { inputType } = this.state
     this.props.handleAddNote(info, inputType)
   }
   handleColor = () => {
@@ -88,19 +72,16 @@ export default class AddNote extends React.Component {
       handlePin,
       handleLabel,
       handleColor,
-      onChangeVal,
       handleClick,
       handleSave,
     } = this
     return (
       <section id="myDiv" className="flex justify-center add-note">
-        {/* <div>{inputType}</div> */}
         {!inputType ? <AddNoteTypeSelector handleClick={handleClick} /> : ""}
         {inputType ? (
           <NoteForm
             placeholder={placeHolder}
             type={inputType}
-            handleChange={onChangeVal}
             handleSave={handleSave}
             handleColor={handleColor}
             handleLabel={handleLabel}

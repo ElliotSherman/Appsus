@@ -8,6 +8,7 @@ export default class NoteTodo extends React.Component {
   }
   render() {
     const { note } = this.props
+    console.log(note.info)
     return (
       <div className="note-todo">
         {note.info.title ? <h2>{note.info.title}</h2> : ""}
@@ -20,4 +21,3 @@ export default class NoteTodo extends React.Component {
     )
   }
 }
-

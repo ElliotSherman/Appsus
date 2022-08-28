@@ -1,24 +1,38 @@
 export default class TodoLi extends React.Component {
-  state = {}
+  state = {
+    doneAt: this.props.todo.doneAt,
+    text: this.props.todo.text,
+  }
 
   handleClick = (e) => {
+    if (this.state.doneAt) {
+      this.setState({
+        doneAt: null,
+      })
+    } else {
+      this.setState({
+        doneAt: Date.now(),
+      })
+    }
     console.log("clicked li", e)
   }
   render() {
     const { handleClick } = this
-    const { todo } = this.props
+    const { doneAt, text } = this.state
     return (
-      <li className="todo-li" onClick={() => handleClick(todo.text)}>
-        {todo.doneAt ? (
+      <li className="todo-li" onClick={() => handleClick(text)}>
+        {doneAt ? (
           <span>
-            <i className="far fa-square"></i>
+            <i className="far fa-check-square "></i>
           </span>
         ) : (
           <span>
-            <i class="far fa-check-square"></i>
+            <i className="far fa-square"></i>
           </span>
         )}
-        {todo.text}
+        <p className={`todo-li-text ${doneAt ? "todo-li-checked" : ""}`}>
+          {text}
+        </p>
       </li>
     )
   }

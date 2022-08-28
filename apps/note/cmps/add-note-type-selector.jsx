@@ -23,7 +23,7 @@ export default function AddNoteTypeSelector(props) {
     </button>
     <button
       className="add-note-type todo-btn"
-      onClick={() => handleClick("todo" , "Enter Comma seperated list")}
+      onClick={() => handleClick("todos" , "Enter Comma seperated list")}
     >
       <i className="far fa-check-square"></i>
     </button>

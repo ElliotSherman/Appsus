@@ -15,7 +15,7 @@
 
 // todo - gather notes[{...}] meta data to render some basic content and skeleton
 import AddNote from "../cmps/add-note.jsx"
-import NoteHeader from "../cmps/note-header.jsx"
+import {NoteHeader} from "../cmps/note-header.jsx"
 import NoteList from "../cmps/note-list.jsx"
 import { noteService } from "../services/note.service.js"
 
