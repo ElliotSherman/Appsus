@@ -1,15 +1,16 @@
 const { Link, NavLink, withRouter } = ReactRouterDOM
 
+
 export function AppHeader() {
     return <header className="app-header">
         <Link to="/">
-            <h3>LOGO!</h3>
+            <img src="./assets/img/logo_new.png"></img>
         </Link>
-        <nav>
-            <NavLink to="/notes">Notes</NavLink>
-            <NavLink to="/mail/inbox">Mail</NavLink>
-            <NavLink to="/about">About</NavLink>
-            <NavLink exact to="/">Home</NavLink>
+        <nav className="header-nav flex">
+            <NavLink to="/notes"><i className="fa-regular fa-note-sticky"></i></NavLink>
+            <NavLink to="/mail/inbox"><i className="fa-solid fa-envelopes-bulk"></i></NavLink>
+            <NavLink to="/about"><i className="fa-solid fa-circle-info"></i></NavLink>
+            <NavLink exact to="/"><i className="fa-solid fa-house"></i></NavLink>
         </nav>
     </header>
 }

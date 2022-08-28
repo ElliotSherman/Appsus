@@ -1,40 +1,49 @@
-import { utilService } from "../../../services/util.service.js"
 import { mailService } from "../services/mail.service.js"
-import { LoadingSpinner } from "../../../cmps/spinner.jsx"
 
 const { Link } = ReactRouterDOM
 
 export function MailPreview({ mail, onRemove, onRestore }) {
 
-    let linkTo = "/mail/" + mail.type + "/" + mail.id
+    let linkTo = `/mail/${mail.type}/${mail.id}`
     if (mail.type === "drafts") {
         linkTo = "/mail/compose/" + mail.id
     }
+    
 
     function onToggleUnread(mail) {
         mailService.toggleUnread(mail)
-            .then((isRead) => console.log('isRead:', isRead))
-    }
+        }
+        
+        const input = mail.from
+        var fields = input.split('@')
+        var name = fields[0]
 
     return (
-        <section className="mail-preview">
+        <section className="mail-preview-container grid">
             <Link to={linkTo}>
-                <article className="mail-preview">
-                    <h3>{mail.from}</h3>
-                    <h3>{mail.subject}</h3>
+                <article className="mail-preview grid">
+                    <div className="preview-from">{name}</div>
+                    <div className="preview-subject">{mail.subject}</div>
+                    <div className="preview-received-at">{mail.receivedAt}</div>
                 </article>
             </Link>
-            <button className="toggle-is-read" onClick={() => {
-                onToggleUnread(mail)
-            }}>Read \ Unread
-            </button>
-            <button className="remove-mail" onClick={() => { onRemove(mail) }}>Remove
-            </button>
-            {
-                mail.isRemoved && <button className="restore-mail" onClick={() => { onRestore(mail) }}>Restore
+
+            <div className="btn preview-btn-container flex">
+                <button className="btn toggle-is-read preview-btn" onClick={() => 
+                    { onToggleUnread(mail)}}>
+                    <i className="far fa-envelope"></i>
                 </button>
-            }
-            <hr />
+
+                <button className="btn remove-mail preview-btn" onClick={() => 
+                    { onRemove(mail) }}>
+                    <i className="far fa-trash-alt"></i>
+                </button>
+                
+                    {mail.isRemoved && <button className="btn restore-mail preview-btn" onClick={() => 
+                        { onRestore(mail) }}>Restore
+                </button>}
+                
+            </div>
         </section>
     )
 }

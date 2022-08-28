@@ -9,7 +9,8 @@ export const utilService = {
     makeRandName,
     randomDate,
     randomBoolean,
-    showTime
+    showTime,
+    makeRandDomain,
 }
 
 function makeId(length = 6) {
@@ -71,6 +72,16 @@ function makeRandName() {
     var size = 1
     while (size > 0) {
         size--
+        txt += words[Math.floor(Math.random() * words.length)]
+    }
+    return txt
+}
+function makeRandDomain() {
+    var words = ['gmail', 'walla', 'hotmail', 'nana', 'mekusharim', 'showme']
+    var txt = ''
+    var size = 1
+    while (size > 0) {
+        size--
         txt += words[Math.floor(Math.random() * words.length)] + ' '
     }
     return txt
@@ -81,7 +92,7 @@ return (Math.random() < 0.5)
 }
 
 function randomDate(start = new Date(2020, 0, 1), end = new Date()) {
-    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+    return new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime())).getTime()
 }
 
 function showTime(sentAt = randomDate()) {

@@ -8,7 +8,7 @@ const { Route, Switch } = ReactRouterDOM
 export class MailIndex extends React.Component {
     render() {
         return (
-            <section className="mail-index">
+            <section className="mail-index flex">
                 <FolderList />
                 <Switch>
                     <Route path="/mail/compose/:draftId?" component={MailCompose} />

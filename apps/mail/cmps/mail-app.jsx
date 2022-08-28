@@ -2,9 +2,8 @@ import { MailFilter } from "../cmps/mail-filter.jsx"
 import { MailList } from "../cmps/mail-list.jsx"
 import { mailService } from "../services/mail.service.js"
 import { LoadingSpinner } from "../../../cmps/spinner.jsx"
-
-const Router = ReactRouterDOM.HashRouter
-const { Route, Switch, NavLink } = ReactRouterDOM
+import { UserMsg } from "../../../cmps/user-msg.jsx"
+import { eventBusService } from '../../../services/event-bus.service.js'
 
 export class MailApp extends React.Component {
 
@@ -12,15 +11,17 @@ export class MailApp extends React.Component {
         mails: null,
         filterBy: null,
     }
-    
+
     componentDidMount() {
         this.loadMails()
     }
 
     loadMails = () => {
-        console.log('this.props.folder:', this.props.folder);
         mailService.query(this.state.filterBy, this.props.folder)
-        .then((mails) => this.setState({ mails }))
+            .then((mails) => {
+                this.setState({ mails })
+            })
+
     }
 
     onSetFilter = (filterBy) => {
@@ -28,30 +29,42 @@ export class MailApp extends React.Component {
             this.loadMails()
         })
     }
-    
+
     onRemove = (mail) => {
         mailService.removeMail(mail)
-        .then(() => this.loadMails())
+            .then(() => {
+                this.loadMails()
+                const msg = {
+                    txt: 'Successfully removed',
+                    type: 'success'
+                }
+                eventBusService.emit('show-user-msg', msg)
+            })
     }
-    
+
     onRestore = (mail) => {
         mailService.restoreMail(mail)
-        .then(() => this.loadMails())
+            .then(() => {
+                this.loadMails()
+                const msg = {
+                    txt: 'Successfully restored',
+                    type: 'success'
+                }
+                eventBusService.emit('show-user-msg', msg)
+            })
     }
 
     render() {
         const { mails } = this.state
-        
-        if (!mails) {
 
-            return <div><LoadingSpinner /></div>
+        if (!mails) {
+            return <LoadingSpinner />
         }
-        
         return (
             <section className="mail-app">
                 <MailFilter onSetFilter={this.onSetFilter} />
-                <hr/>
                 <MailList mails={mails} onRestore={this.onRestore} onRemove={this.onRemove} />
+                <div className="user-message"><UserMsg /></div>
             </section>
         )
     }

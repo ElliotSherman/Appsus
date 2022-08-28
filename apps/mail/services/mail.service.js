@@ -19,7 +19,7 @@ const loggedInUser = {
 }
 
 const STORAGE_KEY = 'emails'
-const NUMBER_OF_MAILS_TO_GENERATE = 20
+const NUMBER_OF_MAILS_TO_GENERATE = 5
 var mailsDB = []
 
 function query(filterBy, type) {
@@ -63,13 +63,14 @@ function _fetch(filterBy, type) {
 
         mails = mails.filter(mail =>
             mail.subject.toLowerCase().includes(bySearch.toLowerCase()) ||
-            mail.body.toLowerCase().includes(bySearch.toLowerCase())
+            mail.body.toLowerCase().includes(bySearch.toLowerCase()) ||
+            mail.from.toLowerCase().includes(bySearch.toLowerCase())
         )
     }
-
     return mails
 }
 
+// For 
 function createMailObject() {
     return {
         id: utilService.makeId(),
@@ -79,23 +80,23 @@ function createMailObject() {
         body: '',
         isRead: false,
         isRemoved: false,
-        type: 'inbox',
+        type: 'inbox'
     }
 }
 
 function _createDummyEmail() {
-    const { makeLorem, makeRandName, randomDate, randomBoolean} = utilService
+    const { makeLorem, makeRandName, randomDate, randomBoolean, makeRandDomain, showTime } = utilService
 
     return {
         ...createMailObject(),
-        to: loggedInUser.name,
-        from: makeRandName(),
+        to: loggedInUser.fullName,
+        from: `${makeRandName()}@${makeRandDomain()}.com`,
         subject: makeLorem(2),
-        body: makeLorem(20),
+        body: makeLorem(30),
         sentAt: randomDate(),
-        receivedAt: randomDate(),
+        receivedAt: showTime(),
         isRead: randomBoolean(),
-        isRemoved: randomBoolean()
+        isRemoved: false
     }
 }
 
@@ -129,8 +130,7 @@ function saveDraft(draft) {
 }
 
 function _simulateLatency(f) {
-    const timeout = utilService.getRandomIntInclusive(1, 500)
-    console.log('timeout:', timeout / 1000)
+    const timeout = utilService.getRandomIntInclusive(1, 700)
     return new Promise((resolve, reject) => {
         setTimeout(() => {
             resolve(f())
@@ -173,7 +173,7 @@ function getById(mailId) {
 function toggleUnread(mail) {
     return _simulateLatency(() => {
         mail.isRead = !mail.isRead
-        console.log('mail.from:', mail.from, '|', 'isRead:', mail.isRead);
+        console.log('isRead:', mail.isRead)
         _saveToStorage()
         countUnread()
         return mail.isRead

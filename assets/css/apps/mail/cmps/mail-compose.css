@@ -1,0 +1,23 @@
+.mail-compose{
+
+    transition: 1s;
+    outline: none;
+    width: 100%;
+}
+
+.compose-form {
+
+    width: 100%;
+}
+
+.to-input, .subject-input, .body-input {
+    background-color: #eff4f8;
+    border: 1px solid #ffffff;
+    padding-left: 20px;
+
+}
+
+.body-input {
+
+}
+

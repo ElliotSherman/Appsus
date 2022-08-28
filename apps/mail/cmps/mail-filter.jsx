@@ -5,7 +5,7 @@ export class MailFilter extends React.Component {
         
         filterBy: {
             bySearch: '',
-            isRead: ''
+            isRead: 'all'
         }
     }
 
@@ -14,7 +14,7 @@ export class MailFilter extends React.Component {
     componentDidMount() {
         this.inputRef.current.focus()
     }
-
+    
     handleChange = ({ target }) => {
         let field = target.name
         let value = target.value
@@ -31,17 +31,16 @@ export class MailFilter extends React.Component {
             }
         }), () => { this.props.onSetFilter(this.state.filterBy) })
     }
-
+    
     render() {
         const { bySearch, isRead } = this.state.filterBy
         return (
             <section className="filter-container">
             <form className="mails-filter">
-                <label htmlFor="search"></label>
                 <input
                     ref={this.inputRef}
                     type="text"
-                    placeholder="Search..."
+                    placeholder="🔎"
                     id="search"
                     name="bySearch"
                     value={bySearch}
